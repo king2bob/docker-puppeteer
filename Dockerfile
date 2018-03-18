@@ -5,7 +5,10 @@ RUN apt-get update -y && apt-get install -y npm python-software-properties curl 
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 RUN apt-get install -y nodejs
 # Create non-root user
-RUN useradd -m puser
+RUN addgroup -S puser && adduser -S -g puser puser \
+    && mkdir -p /home/puser/Downloads \
+    && chown -R puser:puser /home/puser \
+    && chown -R puser:puser /app
 USER puser
 # Create node modules folder and set NODE_PATH environment variable
 RUN mkdir -p /home/puser/node_modules
@@ -20,6 +23,6 @@ RUN npm i .
 # Go to examples folder
 WORKDIR /home/puser/node_modules/puppeteer/examples
 # Add no-sandbox argument
-RUN perl -p -i -e "s/puppeteer.launch\(\)/puppeteer.launch({args: ['--no-sandbox']})/" *
+RUN perl -p -i -e "s/puppeteer.launch\(\)/puppeteer.launch()/" *
 CMD echo 'eg: node pdf.js' && bash
 
