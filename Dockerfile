@@ -7,8 +7,7 @@ RUN apt-get install -y nodejs
 # Create non-root user
 RUN groupadd -r puser && useradd -r -g puser -G audio,video puser \
     && mkdir -p /home/puser/Downloads \
-    && chown -R puser:puser /home/puser \
-    && chown -R puser:puser /app
+    && chown -R puser:puser /home/puser
 USER puser
 # Create node modules folder and set NODE_PATH environment variable
 RUN mkdir -p /home/puser/node_modules
