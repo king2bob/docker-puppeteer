@@ -5,7 +5,7 @@ RUN apt-get update -y && apt-get install -y npm python-software-properties curl 
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 RUN apt-get install -y nodejs
 # Create non-root user
-RUN addgroup -S puser && adduser -S -g puser puser \
+RUN groupadd -r puser && useradd -r -g puser -G audio,video puser \
     && mkdir -p /home/puser/Downloads \
     && chown -R puser:puser /home/puser \
     && chown -R puser:puser /app
