@@ -22,7 +22,5 @@ WORKDIR /home/puser/node_modules/puppeteer
 RUN npm i .
 # Go to examples folder
 WORKDIR /home/puser/node_modules/puppeteer/examples
-# Add no-sandbox argument
-RUN perl -p -i -e "s/puppeteer.launch\(\)/puppeteer.launch()/" *
 CMD echo 'eg: node pdf.js' && bash
 
